@@ -5,7 +5,7 @@ import {BrokerPubSubServer} from "./broker.server";
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
-  const microservice = app.connectMicroservice(  {
+  app.connectMicroservice(  {
     strategy: new BrokerPubSubServer(),
   });
 

@@ -43,7 +43,7 @@ export class BrokerPubSubServer
                     }
 
                     console.log("Subscribed to broker")
-                    message.readString('utf-8', (error, body)=> {
+                    message.readString('utf-8', async (error, body)=> {
 
                         if (error) {
                             console.log('read message error ' + error.message);
@@ -54,7 +54,7 @@ export class BrokerPubSubServer
 
                         const parsedBody = JSON.parse(body)
                         const handler = this.messageHandlers.get(parsedBody.pattern)
-                        handler && handler(parsedBody.data)
+                        handler && await handler(parsedBody.data)
                         client.ack(message);
 
                         // client.disconnect();
