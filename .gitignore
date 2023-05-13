@@ -32,3 +32,10 @@ yarn-error.log*
 # turbo
 .turbo
 /activemq
+
+# terraform
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
