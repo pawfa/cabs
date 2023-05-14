@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "production"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - npm i
+  pre_build:
+    commands:
+      - npm i
+      - turbo run test
+  build:
+    commands:
+      - npm i
+      - turbo run build
+
+artifacts:
+  files:
+    - "**/*"
+  name: "web-prod"
+  base-directory: out
+
+cache:
+  paths:
+    - /root/.npm/**/*
