@@ -7,17 +7,18 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 16
     commands:
-      - npm i
+      - npm ci
+      - npm install -g turbo
   pre_build:
     commands:
-      - npm i
-      - turbo run test
+      - npm ci
+      - npm run test
   build:
     commands:
-      - npm i
-      - turbo run build
+      - npm ci
+      - npm run build
 
 artifacts:
   files:

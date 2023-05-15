@@ -112,7 +112,7 @@ resource "aws_codebuild_project" "cabs" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
+    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:4.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
   }
@@ -226,6 +226,20 @@ data "aws_iam_policy_document" "codepipeline_policy" {
 
     resources = ["*"]
   }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "kms:DescribeKey",
+      "kms:GenerateDataKey*",
+      "kms:Encrypt",
+      "kms:ReEncrypt*",
+      "kms:Decrypt"
+    ]
+
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
@@ -234,6 +248,17 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   policy = data.aws_iam_policy_document.codepipeline_policy.json
 }
 
+resource "aws_kms_key" "kmsKey" {
+  description             = "KMS key 1"
+}
+
+resource "aws_kms_alias" "myKmsKey" {
+  name          = "alias/myKmsKey"
+  target_key_id = aws_kms_key.kmsKey.key_id
+  depends_on = [aws_kms_key.kmsKey]
+}
+
 data "aws_kms_alias" "s3kmskey" {
   name = "alias/myKmsKey"
+  depends_on = [aws_kms_alias.myKmsKey]
 }
