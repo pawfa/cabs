@@ -1,7 +1,6 @@
 {
   "name": "cabs",
   "version": "0.0.0",
-  "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -18,9 +17,5 @@
     "prettier": "2.8.8",
     "turbo": "1.9.5"
   },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "dependencies": {},
-  "packageManager": "npm@8.5.0"
+  "dependencies": {}
 }

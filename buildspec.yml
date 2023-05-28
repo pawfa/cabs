@@ -9,11 +9,9 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - npm ci
-      - npm install -g turbo
+      - npm install --loglevel verbose
   pre_build:
     commands:
-      - npm ci
       - npm run test
   build:
     commands:
@@ -29,3 +27,4 @@ artifacts:
 cache:
   paths:
     - /root/.npm/**/*
+    - node_modules/**/*
