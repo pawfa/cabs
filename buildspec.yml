@@ -9,13 +9,12 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      - npm install --loglevel verbose
+      - npm ci --production=false
   pre_build:
     commands:
       - npm run test
   build:
     commands:
-      - npm ci
       - npm run build
 
 artifacts:
